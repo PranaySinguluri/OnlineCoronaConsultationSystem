@@ -26,15 +26,14 @@ public class MedicineReportController {
 	public List<MedicineReport> getallReports(){
 		return repo.findAll();
 	}
-	@PostMapping("/save")
+	@PostMapping("/add")
 	public void saveReport(@Validated @RequestBody MedicineReport med) {
 	repo.save(med);
 	}
 	
-	@GetMapping(value="/getreport/{id}")
+	@GetMapping(value="/getpatientreports/{id}")
 	public Optional<MedicineReport> getpatientreports(@PathVariable Integer id) {
 		 return repo.findById(id);
 		 
 	}
 }
-//hi

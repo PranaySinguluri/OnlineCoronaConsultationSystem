@@ -2,8 +2,10 @@ package com.coronaconsultation.entities;
 
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,11 +27,23 @@ public class MedicineReport {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique= true)
 	private  Integer  medicineReportId;
 	
-	private Date reportdate;
-	
+	private LocalDate reportdate;
+
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "p_id")
 	private Patient patient;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
+	private Medicine medicine;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "doctorId")
+	private Doctor doc;
 }
+ 
+
+

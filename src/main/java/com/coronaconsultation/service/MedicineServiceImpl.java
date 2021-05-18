@@ -1,43 +1,50 @@
 package com.coronaconsultation.service;
 
+import java.awt.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.coronaconsultation.entities.Medicine;
+import com.coronaconsultation.exceptions.MedicineIdNotFoundException;
 import com.coronaconsultation.repository.MedicineRepository;
 
-
+@Service
 public class MedicineServiceImpl implements MedicineService{
-
+	private static final String ERROR_MESSAGE = "Patient ID Not Found";
 	@Autowired
 	private MedicineRepository repo;
-	
+
 	@Override
 	public Medicine savemed(Medicine med) {
-		// TODO Auto-generated method stub
 		return repo.save(med);
 	}
-
-	
 
 	@Override
 	public Medicine updateMed(Medicine med) {
-		// TODO Auto-generated method stub
 		return repo.save(med);
 	}
 
 	@Override
-	public Optional<Medicine> getMedicineById(int id) {
-		// TODO Auto-generated method stub
-		return repo.findById(id);
+	public Optional<Medicine> getMedicineById(int id) throws  MedicineIdNotFoundException{
+       try {
+    	   return repo.findById(id);
+       }
+       catch (Exception e) {
+    	   throw new  MedicineIdNotFoundException(id);
+       }
+		
 	}
-
 	@Override
 	public void deleteMed(int id) {
-		// TODO Auto-generated method stub
+
 		repo.deleteById(id);
 		
+	}
+	@Override
+	public List getAllmeds() {
+		return null;
 	}
 
 	

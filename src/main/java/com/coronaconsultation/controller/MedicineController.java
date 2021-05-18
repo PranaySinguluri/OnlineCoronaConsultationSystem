@@ -20,19 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coronaconsultation.entities.Medicine;
 import com.coronaconsultation.entities.MedicineReport;
+import com.coronaconsultation.exceptions.MedicineIdNotFoundException;
 import com.coronaconsultation.repository.MedicineReportRepo;
 import com.coronaconsultation.repository.MedicineRepository;
-import com.coronaconsultation.service.MedicineService;
+import com.coronaconsultation.service.MedicineServiceImpl;
+
 
 @RestController
 @RequestMapping(value="/api/medicine")
 public class MedicineController {
-
 	@Autowired(required=true)
 	private MedicineRepository repo;
 	
 	@Autowired
-	private MedicineService service;
+	private MedicineServiceImpl service;
 	                                           		 
 	                                         
 	@GetMapping(value="/getallmeds")
@@ -42,7 +43,7 @@ public class MedicineController {
 	@PostMapping("/savemed")
 	public ResponseEntity<String> saveReport(@Validated @RequestBody Medicine med) {
 	
-	if(!repo.existsById(med.getId())) {
+	if(!repo.existsById(med.getMedicine_id())) {
 		service.savemed(med);
 	return new ResponseEntity<String>("Saved Medicine Details Successfully",HttpStatus.ACCEPTED);
 	}
@@ -53,7 +54,7 @@ public class MedicineController {
 	
 	@PutMapping(value="/updatemeds")
 	public ResponseEntity<String> updatePatient(@Validated @RequestBody Medicine med) {
-		if(repo.existsById(med.getId())) {
+		if(repo.existsById(med.getMedicine_id())) {
 			service.updateMed(med);
 		return new ResponseEntity<String>("Saved Medicine Details Successfully",HttpStatus.OK);
 		}
@@ -74,7 +75,7 @@ public class MedicineController {
 		
 	}
 	@DeleteMapping(value="/deleteById/{id}") 
-	public ResponseEntity<String> deleteById(@Validated @PathVariable Integer id) {
+	public ResponseEntity<String> deleteById(@Validated @PathVariable Integer id) throws MedicineIdNotFoundException {
 		if(repo.existsById(id)) {
 			service.getMedicineById(id);
 		return new ResponseEntity<String>("Deleted Medicine Details Successfully",HttpStatus.OK);
@@ -82,17 +83,7 @@ public class MedicineController {
 		else {
 			return new ResponseEntity<String>("No Medicine with Id",HttpStatus.BAD_REQUEST);
 		}
-}
-//	@DeleteMapping(value="/deleteAllById/{id}") 
-//	public ResponseEntity<String> deleteAllById(@Validated @RequestBody Medicine med) {
-//		if(repo.existsById(med.getId())) {
-//			repo.deleteAllById(med);
-//		return new ResponseEntity<String>("Deleted Medicine Details Successfully",HttpStatus.OK);
-//		}
-//		else {
-//			return new ResponseEntity<String>("No Medicine with Id",HttpStatus.BAD_REQUEST);
-//		}
-//}
+	}
 	
 	
 }
