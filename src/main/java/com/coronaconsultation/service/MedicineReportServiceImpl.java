@@ -17,13 +17,13 @@ public class MedicineReportServiceImpl implements MedicineReportService {
 	private MedicineReportRepo repo;
 	
 	@Override
-	public List<MedicineReport> getAllreports() {
+	public List<MedicineReport> getAllReports() {
 		
 		return repo.findAll();
 	}
 
 	@Override
-	public Optional<MedicineReport> getpatientreports(int id) throws MedicineReportIdNotFoundException {
+	public Optional<MedicineReport> getPatientReports(int id) throws MedicineReportIdNotFoundException {
 		 try {
 	    	   return repo.findById(id);
 	       }

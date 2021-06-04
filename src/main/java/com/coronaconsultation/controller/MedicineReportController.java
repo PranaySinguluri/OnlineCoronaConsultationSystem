@@ -22,8 +22,8 @@ public class MedicineReportController {
 	@Autowired(required=true)
 	private MedicineReportRepo repo;
 	
-	@GetMapping(value="/getallreports")
-	public List<MedicineReport> getallReports(){
+	@GetMapping(value="/getAllReports")
+	public List<MedicineReport> getAllReports(){
 		return repo.findAll();
 	}
 	@PostMapping("/add")
@@ -31,8 +31,8 @@ public class MedicineReportController {
 	repo.save(med);
 	}
 	
-	@GetMapping(value="/getpatientreports/{id}")
-	public Optional<MedicineReport> getpatientreports(@PathVariable Integer id) {
+	@GetMapping(value="/getPatientReports/{id}")
+	public Optional<MedicineReport> getPatientReports(@PathVariable Integer id) {
 		 return repo.findById(id);
 		 
 	}

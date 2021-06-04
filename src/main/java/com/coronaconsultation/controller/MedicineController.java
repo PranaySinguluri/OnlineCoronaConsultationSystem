@@ -5,10 +5,12 @@ package com.coronaconsultation.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import com.coronaconsultation.service.MedicineServiceImpl;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping(value="/api/medicine")
 public class MedicineController {
 	@Autowired(required=true)
@@ -34,8 +37,7 @@ public class MedicineController {
 	
 	@Autowired
 	private MedicineServiceImpl service;
-	                                           		 
-	                                         
+	                                             
 	@GetMapping(value="/getallmeds")
 	public List<Medicine> getallReports(){
      return repo.findAll();
@@ -43,8 +45,8 @@ public class MedicineController {
 	@PostMapping("/savemed")
 	public ResponseEntity<String> saveReport(@Validated @RequestBody Medicine med) {
 	
-	if(!repo.existsById(med.getMedicine_id())) {
-		service.savemed(med);
+	if(!repo.existsById(med.getMedicineId())) {
+		service.saveMed(med);
 	return new ResponseEntity<String>("Saved Medicine Details Successfully",HttpStatus.ACCEPTED);
 	}
 	else {
@@ -52,9 +54,9 @@ public class MedicineController {
 	}
 	}
 	
-	@PutMapping(value="/updatemeds")
+	@PutMapping(value="/update/meds") 
 	public ResponseEntity<String> updatePatient(@Validated @RequestBody Medicine med) {
-		if(repo.existsById(med.getMedicine_id())) {
+		if(repo.existsById(med.getMedicineId())) {
 			service.updateMed(med);
 		return new ResponseEntity<String>("Saved Medicine Details Successfully",HttpStatus.OK);
 		}
@@ -62,7 +64,7 @@ public class MedicineController {
 			return new ResponseEntity<String>("Medicine Id Not Found in Database Please Provide details by saving",HttpStatus.BAD_REQUEST);
 		}
 	}
-	@GetMapping(value="/getmedbyId/{id}")
+	@GetMapping(value="/getMedbyId/{id}")
 	public ResponseEntity<String> getMedicineById(@Validated @PathVariable Integer id){
 		if(repo.existsById(id)) {
 			Optional<Medicine> med=repo.findById(id);
@@ -70,7 +72,7 @@ public class MedicineController {
 			return new ResponseEntity<String>(Result,HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<String>("No Stock Found",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("no medicine with Id Found",HttpStatus.BAD_REQUEST);
 		}
 		
 	}

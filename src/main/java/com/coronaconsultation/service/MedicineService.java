@@ -12,10 +12,10 @@ import com.coronaconsultation.exceptions.MedicineIdNotFoundException;
 @Service
 public interface MedicineService {
 
-	public Medicine savemed(Medicine med);
-	public List  getAllmeds();
+	public Medicine saveMed(Medicine med);
+	public List  getAllMeds();
 	public Medicine updateMed(Medicine med);
-	public Optional<Medicine> getMedicineById(int medicine_id) throws MedicineIdNotFoundException ;
+	public Optional<Medicine> getMedicineById(int medicineId) throws MedicineIdNotFoundException ;
 	public void deleteMed(int id);
 	
 }

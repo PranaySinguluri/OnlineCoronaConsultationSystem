@@ -1,6 +1,4 @@
 package com.coronaconsultation.entities;
-
-
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -19,18 +17,16 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
-
 @Entity
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "medicineReportId", scope = Integer.class)
 public class MedicineReport {
-
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique= true)
 	private  Integer  medicineReportId;
 	
-	private LocalDate reportdate;
+	private LocalDate reportDate;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "p_id")
@@ -44,6 +40,3 @@ public class MedicineReport {
 	@JoinColumn(name = "doctorId")
 	private Doctor doc;
 }
- 
-
-

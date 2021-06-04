@@ -17,7 +17,7 @@ public class MedicineServiceImpl implements MedicineService{
 	private MedicineRepository repo;
 
 	@Override
-	public Medicine savemed(Medicine med) {
+	public Medicine saveMed(Medicine med) {
 		return repo.save(med);
 	}
 
@@ -43,7 +43,7 @@ public class MedicineServiceImpl implements MedicineService{
 		
 	}
 	@Override
-	public List getAllmeds() {
+	public List getAllMeds() {
 		return null;
 	}
 
